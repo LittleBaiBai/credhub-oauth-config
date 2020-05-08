@@ -12,14 +12,6 @@ import org.springframework.security.oauth2.client.web.server.ServerOAuth2Authori
 @SpringBootApplication
 public class CredHubOauthConfigApplication {
 
-    // uncommenting that fixes the issue
-    //@Bean
-    public ServerOAuth2AuthorizedClientRepository authorizedClientRepository(
-            ReactiveOAuth2AuthorizedClientService authorizedClientService) {
-        return new AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository(
-                authorizedClientService);
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(CredHubOauthConfigApplication.class, args);
     }

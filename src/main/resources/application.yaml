@@ -6,3 +6,7 @@ spring:
           github:
             client-id: ${client-id}
             client-secret: ${client-secret}
+  credhub:
+    url: https://credhub.service.cf.internal:8844/
+    oauth2:
+      registration-id: github
