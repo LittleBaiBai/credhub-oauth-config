@@ -14,13 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    // commenting that fixes the issue
-    implementation 'org.springframework.credhub:spring-credhub-starter:2.1.0.RELEASE'
+    implementation 'org.springframework.credhub:spring-credhub-starter:2.0.1.RELEASE'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
