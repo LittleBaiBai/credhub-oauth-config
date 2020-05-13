@@ -30,23 +30,23 @@ public class IndexController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
-    private final CredHubOperations credHubOperations;
+    private final ReactiveCredHubOperations credHubOperations;
 
     public IndexController(@Value("${spring.credhub.url}") String credHubUrl) {
         this.credHubOperations = buildMtlsCredHubOperations(credHubUrl);
     }
 
-    private CredHubOperations buildMtlsCredHubOperations(String runtimeCredHubUrl) {
+    private ReactiveCredHubOperations buildMtlsCredHubOperations(String runtimeCredHubUrl) {
    		CredHubProperties credHubProperties = new CredHubProperties();
    		credHubProperties.setUrl(runtimeCredHubUrl);
-   		return new CredHubTemplateFactory().credHubTemplate(credHubProperties, new ClientOptions());
+   		return new CredHubTemplateFactory().reactiveCredHubTemplate(credHubProperties, new ClientOptions());
    	}
 
     @GetMapping("/read")
     Mono<String> read() {
-        return Mono.just(credHubOperations
+        return credHubOperations
                 .credentials()
-                .getByName(new SimpleCredentialName("/c/p.spring-cloud-gateway-service-scg-service-broker/client-certificate"), ValueCredential.class))
+                .getByName(new SimpleCredentialName("/c/p.spring-cloud-gateway-service-scg-service-broker/client-certificate"), ValueCredential.class)
                 .map(CredentialDetails::toString);
     }
 }
