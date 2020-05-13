@@ -39,8 +39,18 @@ public class IndexController {
     private ReactiveCredHubOperations buildMtlsCredHubOperations(String runtimeCredHubUrl) {
    		CredHubProperties credHubProperties = new CredHubProperties();
    		credHubProperties.setUrl(runtimeCredHubUrl);
-   		return new CredHubTemplateFactory().reactiveCredHubTemplate(credHubProperties, new ClientOptions());
+   		return new ReactiveCredHubTemplate(credHubProperties, getConnector());
    	}
+
+	private ClientHttpConnector getConnector() {
+		HttpClient httpClient = HttpClient.create();
+
+		httpClient = httpClient.secure(sslContextSpec -> sslContextSpec
+				.sslContext(SslContextBuilder.forClient()
+                                             .sslProvider(SslProvider.JDK)));
+
+		return new ReactorClientHttpConnector(httpClient);
+	}
 
     @GetMapping("/read")
     Mono<String> read() {
